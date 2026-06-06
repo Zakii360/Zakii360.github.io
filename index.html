@@ -199,7 +199,7 @@ details.faq[open] summary .mk{transform:rotate(45deg)}
     for(let i = 0; i < cols * rows; i++){
       const s = i * 4;
       let r = raw[s], gv = raw[s+1], b = raw[s+2];
-      // darkening pass to give it that night NYC vibe
+      // darkening pass to give it that night NYC vibe (I'm from NYC) LET'S GO KNICKS
       const lum = 0.299*r + 0.587*gv + 0.114*b;
       const t = Math.min(lum / 255, 1);
       r = Math.round(r * t * 0.55);
