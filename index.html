@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zakii360 On GitHub</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+   <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .container {
+        background-color: #fff;
+        width: 100%;
+        max-width: 800px;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        overflow: hidden;
+        box-sizing: border-box;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+        animation: slideInFromLeft 1s ease-out;
+    }
+
+    @keyframes slideInFromLeft {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        color: #555;
+        margin-bottom: 30px;
+        font-weight: 500;
+        animation: slideInFromRight 1s ease-out;
+    }
+
+    @keyframes slideInFromRight {
+        0% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    p {
+        font-size: 1rem;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .button {
+        position: relative;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(45deg, #4CAF50, #45a049);
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .button::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        z-index: -1;
+    }
+
+    .button:hover::after {
+        transform: scaleX(1);
+        transform-origin: top left;
+    }
+
+    .button:hover {
+        transform: scale(1.05);
+        background: linear-gradient(45deg, #45a049, #4CAF50);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .quick-links {
+        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        opacity: 0;
+        animation: fadeIn 2s forwards;
+    }
+
+    .quick-links a {
+        text-decoration: none;
+        padding: 15px 25px;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        color: #333;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .quick-links a:hover {
+        background-color: #007bff;
+        color: white;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .footer {
+        margin-top: 50px;
+        font-size: 1.2rem;
+        color: #888;
+    }
+
+    .footer a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .footer a:hover {
+        color: #0056b3;
+    }
+
+    .scroll-reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .scroll-reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.4);
+        animation: ripple-animation 0.6s linear;
+    }
+
+    @keyframes ripple-animation {
+        100% {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+
+    .github-signin {
+        display: inline-block;
+        padding: 12px 25px;
+        border-radius: 8px;
+        background-color: #24292f;
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .github-signin img {
+        width: 18px;
+        margin-right: 10px;
+    }
+
+    .github-signin:hover {
+        transform: scale(1.05);
+        background-color: #3e444d;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+</style>
+    
+</head>
+<body>
+
+<div class="container">
+    <h1>Hi there 👋</h1>
+    <h2>Welcome to my profile site!</h2>
+
+    <button id="github-signin" class="github-signin">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg">
+        Sign In with GitHub
+    </button>
+
+    <button id="random-btn" class="button">Some Random Button</button>
+
+    <div id="user-info" style="display:none;">
+        <h3>Welcome, <span id="user-name"></span></h3>
+        <p>Email: <span id="user-email"></span></p>
+        <button onclick="signOut()">Sign Out</button>
+    </div>
+</div>
+
+<script>
+    const supabaseUrl = 'https://jcteldmrdykjlikoyvfj.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjdGVsZG1yZHlramxpa295dmZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MjUxNTUsImV4cCI6MjA5MzQwMTE1NX0.Zg5iofmJB9DadPKTO2MeXzpI2u25jx5_XPgmZVaJ8Us';
+
+
+    const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    const btn = document.getElementById('github-signin');
+
+    btn.addEventListener('click', async () => {
+        await client.auth.signInWithOAuth({
+            provider: 'github',
+            options: {
+                redirectTo: window.location.origin
+            }
+        });
+    });
+
+  
+    window.addEventListener('load', async () => {
+        const { data: { user } } = await client.auth.getUser();
+        if (user) showUser(user);
+    });
+
+    function showUser(user) {
+        document.getElementById('user-info').style.display = 'block';
+        document.getElementById('user-name').textContent =
+            user.user_metadata?.full_name || 'No name';
+        document.getElementById('user-email').textContent =
+            user.email || 'No email';
+    }
+
+    async function signOut() {
+        await client.auth.signOut();
+        location.reload();
+    }
+
+    document.getElementById('random-btn').onclick = () => {
+    window.location.href = 'https://www.360-search.com/search?q=$%20';
+};
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 360 Dev btw -->
